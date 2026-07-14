@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DARKEN | Official Clan</title>
+    <title>DARKEN | System Active</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #030303;
-            --bg-glow: radial-gradient(circle at 50% 0%, #1a0505 0%, #030303 70%);
+            --bg-glow: radial-gradient(circle at 50% 0%, #0d1a10 0%, #030303 70%);
             --text: #ffffff;
             --text-muted: #888888;
-            --accent: #ff2a2a; /* Фирменный красный цвет клана */
+            --accent: #ff2a2a; 
+            --neon-green: #00ff66;
             --glass: rgba(20, 20, 20, 0.4);
             --border: rgba(255, 255, 255, 0.05);
             --border-hover: rgba(255, 42, 42, 0.5);
         }
 
-        /* Кастомный скроллбар */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -43,7 +43,7 @@
             width: 100vw; height: 100vh;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .wrapper {
@@ -54,7 +54,6 @@
             padding: 50px 20px;
         }
 
-        /* Главный экран */
         .hero {
             min-height: 40vh;
             display: flex;
@@ -84,11 +83,11 @@
             position: absolute;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(180deg, transparent 50%, var(--accent) 100%);
+            background: linear-gradient(180deg, transparent 50%, var(--neon-green) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            opacity: 0.3;
-            filter: blur(8px);
+            opacity: 0.2;
+            filter: blur(10px);
             z-index: -1;
         }
 
@@ -106,12 +105,11 @@
             position: absolute;
             top: 50%;
             width: 30px; height: 1px;
-            background: var(--accent);
+            background: var(--neon-green);
         }
         .motto::before { left: -40px; }
         .motto::after { right: -40px; }
 
-        /* Сетка карточек */
         .gridContainer {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -121,7 +119,6 @@
 
         .full-width { grid-column: 1 / -1; }
 
-        /* Дизайн карточек */
         .glassCard {
             background: var(--glass);
             backdrop-filter: blur(16px);
@@ -154,13 +151,13 @@
 
         .glassCard:hover {
             transform: translateY(-5px);
-            border-color: var(--border-hover);
+            border-color: rgba(0, 255, 102, 0.3);
             background: rgba(30, 30, 30, 0.6);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(255, 42, 42, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(0, 255, 102, 0.05);
         }
 
         .glassCard:hover::before {
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
         }
 
         .cardTitle {
@@ -178,9 +175,24 @@
         .cardTitle span {
             display: inline-block;
             width: 8px; height: 8px;
-            background: var(--accent);
+            background: var(--neon-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
+            50% { text-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 5px var(--neon-green); }
+            100% { text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
+        }
+
+        .status-active {
+            font-size: 1.1rem; 
+            color: var(--neon-green); 
+            font-weight: 900; 
+            letter-spacing: 0.15em; 
+            margin-bottom: 10px;
+            animation: neonPulse 2.5s infinite;
         }
 
         .cardValue {
@@ -190,55 +202,6 @@
             flex-grow: 1;
         }
 
-        /* Теги игр */
-        .tagList {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tag {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: 0.3s;
-        }
-
-        .tag:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(255, 42, 42, 0.4);
-            transform: scale(1.05);
-        }
-
-        /* Списки и правила */
-        .list-styled {
-            list-style: none;
-            margin-top: 15px;
-        }
-        
-        .list-styled li {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 12px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .list-styled li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Кнопки */
         .actionBtn {
             display: inline-flex;
             align-items: center;
@@ -246,7 +209,7 @@
             padding: 14px 28px;
             background: #ffffff;
             color: #000000;
-            border-radius: 8px;
+            border-radius: 16px; 
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
@@ -258,9 +221,9 @@
         }
 
         .actionBtn:hover {
-            background: var(--accent);
-            color: #ffffff;
-            box-shadow: 0 0 20px rgba(255, 42, 42, 0.5);
+            background: var(--neon-green);
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
             transform: translateY(-2px);
         }
 
@@ -271,46 +234,55 @@
         }
 
         .actionBtn.outline:hover {
-            border-color: var(--accent);
-            background: rgba(255, 42, 42, 0.1);
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.1);
+            color: #fff;
         }
 
-        /* Вакансии */
-        .vacancy-grid {
+        .resource-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 25px;
         }
 
-        .vacancyItem {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+        .resource-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: left;
+            text-decoration: none;
+            color: #fff;
             transition: 0.3s;
-        }
-        
-        .vacancyItem:hover {
-            padding-left: 10px;
-            border-color: var(--accent);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .vacancy-age {
-            background: rgba(255,255,255,0.05);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-weight: bold;
+        .resource-card:hover {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.05);
+            transform: translateY(-3px);
         }
 
-        /* Футер */
+        .resource-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .resource-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
         footer {
             margin-top: 60px;
             padding-top: 30px;
-            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -318,10 +290,7 @@
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.2em;
-        }
-
-        @media (max-width: 900px) {
-            .vacancy-grid { grid-template-columns: 1fr; gap: 20px; }
+            padding-bottom: 20px;
         }
 
         @media (max-width: 600px) {
@@ -329,7 +298,7 @@
             .hero { min-height: 30vh; margin-bottom: 20px; }
             .glassCard { padding: 25px; }
             footer { flex-direction: column; gap: 15px; text-align: center; }
-            .actionBtn { width: 100%; }
+            .actionBtn { width: 100%; margin-top: 15px; }
             .motto::before, .motto::after { display: none; }
         }
     </style>
@@ -348,147 +317,95 @@
             <div class="glassCard">
                 <div class="cardTitle"><span></span> статус протокола</div>
                 <div class="cardValue">
-                    <div style="font-size: 0.8rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 10px;">ВРЕМЕННО ЗАКРЫТ</div>
-                    <div style="font-size: 1.4rem; font-weight: 400;">Возвращение: <br>15 июля 2026</div>
+                    <div class="status-active">ПРОТОКОЛ ЗАПУЩЕН</div>
+                    <div style="font-size: 1.4rem; font-weight: 400;">Система онлайн</div>
                     <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
-                        Полный запуск системы:<br><strong style="color: #fff;">19.07.2026</strong>
+                        Официальное открытие состоялось.<br>Добро пожаловать в клан.
                     </div>
                 </div>
             </div>
 
-                            <div class="glassCard">
+            <div class="glassCard">
                 <div class="cardTitle"><span></span> инфоцентр</div>
                 <div style="display: flex; flex-direction: column; gap: 15px; flex-grow: 1; justify-content: center;">
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border-left: 3px solid #ff4d4d;">
-                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">В строю</div>
-                        <div id="daysCounter" style="font-size: 1rem; font-weight: 700; color: #fff;">
-                             </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; border-left: 3px solid var(--neon-green);">
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Система в строю</div>
+                        <div id="daysCounter" style="font-size: 1rem; font-weight: 700; color: #fff;"></div>
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Тип клана</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Формат</div>
                         <div style="font-size: 1.2rem; font-weight: 600;">Multigaming</div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="glassCard full-width" style="flex-direction: row; flex-wrap: wrap; gap: 30px; align-items: center;">
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="cardTitle"><span></span> принципы & кодекс</div>
+                    <div class="cardValue" style="font-size: 1.1rem;">
+                        Мы строим комьюнити, где каждый игрок имеет вес. Токсичность и конфликты остаются за бортом.
+                        <ul style="margin-top: 15px; color: #ccc; font-size: 0.95rem; list-style: none; padding: 0; line-height: 1.8;">
+                            <li><strong style="color: #fff;">01.</strong> Абсолютная адекватность</li>
+                            <li><strong style="color: #fff;">02.</strong> Уважение к руководству и составу</li>
+                            <li><strong style="color: #fff;">03.</strong> Постоянное развитие и командная игра</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://telegra.ph/Pravila-klana-Darken-02-17-3" target="_blank" class="actionBtn outline" style="margin: 0; padding: 18px 36px; border-radius: 20px;">Читать полный устав</a>
+            </div>
 
-                    <a href="https://t.me/xrocket?start=inv_OEHTIOwzWxrChmF" target="_blank" style="text-decoration: none; margin-top: 5px;">
-                        <div style="background: #fff; border-radius: 8px; padding: 12px; text-align: center; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); transition: 0.3s; cursor: pointer;">
-                            <span style="font-size: 0.9rem; color: #000; text-transform: uppercase; font-weight: 900; letter-spacing: 0.5px;">
-                                🚀 Поддержать систему
-                            </span>
-                        </div>
+            <div class="glassCard full-width" style="padding: 40px; border-color: rgba(0, 255, 102, 0.2); box-shadow: 0 0 30px rgba(0, 255, 102, 0.05);">
+                <div class="cardTitle" style="margin-bottom: 25px;"><span></span> Инфраструктура & Заявки</div>
+                
+                <div class="resource-grid">
+                    <a href="https://t.me/abyss_ru_bot?start=apply" target="_blank" class="resource-card" style="border-color: var(--neon-green); background: rgba(0,255,102,0.05);">
+                        <div class="resource-title" style="color: var(--neon-green);">📝 Подать заявку (Abyss)</div>
+                        <div class="resource-desc">Автоматическое начало регистрации в ряды клана.</div>
+                    </a>
+
+                    <a href="https://t.me/darkenstarsbot" target="_blank" class="resource-card">
+                        <div class="resource-title">⭐ TG Stars & Dонат</div>
+                        <div class="resource-desc">Магазин звезд, премиума и доната в игры.</div>
+                    </a>
+
+                    <a href="https://t.me/darken_official" target="_blank" class="resource-card">
+                        <div class="resource-title">📱 Telegram Channel</div>
+                        <div class="resource-desc">Главные новости, анонсы и обновления протокола.</div>
+                    </a>
+
+                    <a href="https://discord.gg/JAAYF7hsE" target="_blank" class="resource-card">
+                        <div class="resource-title">🎧 Discord Server</div>
+                        <div class="resource-desc">Голосовая связь, сборки на игры и общение состава.</div>
+                    </a>
+                    
+                    <a href="http://darken-eja.pages.dev" target="_blank" class="resource-card">
+                        <div class="resource-title">🌐 Web-Портал</div>
+                        <div class="resource-desc">Официальный домен: darken-eja.pages.dev.</div>
                     </a>
                 </div>
-            </div>
-                    
 
-
-                                    <div class="glassCard">
-                <div class="cardTitle"><span></span> дисциплины</div>
-                <div class="tagList">
-                    <span class="tag">Black Russia</span>
-                    <span class="tag">Roblox</span>
-                    <span class="tag">CS2</span>
-                    <span class="tag">Dota 2</span>
-                    <span class="tag">Standoff 2</span>
-                    <span class="tag">PUBG MOBILE</span>
-                    <span class="tag">MLBB</span>
-                    <span class="tag">Brawl Stars</span>
-                    <span class="tag">Minecraft</span>
-                    <span class="tag">Free Fire</span>
-                    
-                    <span class="tag">GTA 5 / RP</span>
-                    <span class="tag">Call of Duty</span>
-                    <span class="tag">Genshin Impact</span>
-                    <span class="tag">War Thunder</span>
-                    <span class="tag">Valorant</span>
-                    <span class="tag">World of Tanks</span>
-                    <span class="tag">Apex Legends</span>
-                    <span class="tag">Fortnite</span>
-                    <span class="tag">Warzone</span>
-                    <span class="tag">Arena Breakout</span>
-                    <span class="tag">Blood Strike</span>
-                    <span class="tag">FIFA / FC</span>
-                    <span class="tag">Rust</span>
-                    <span class="tag">Rainbow Six Siege</span>
-                    <span class="tag">Dead by Daylight</span>
-                    <span class="tag">Phasmophobia</span>
-                    <span class="tag">Among Us</span>
-                    <span class="tag">Assetto Corsa</span>
-                    <span class="tag">Forza Horizon</span>
-                    <span class="tag">Rocket League</span>
-                    <span class="tag">League of Legends</span>
-                    <span class="tag">DayZ</span>
-                    <span class="tag">Ark: Survival</span>
-                    <span class="tag">Terraria</span>
-                    <span class="tag">Euro Truck Sim 2</span>
-                    <span class="tag">Escape from Tarkov</span>
-                    <span class="tag">Mortal Kombat</span>
-                    <span class="tag">Clash Royale</span>
-                    
-                    <span class="tag" style="background: rgba(255,255,255,0.1); border: 1px dashed #ff4d4d; color: #ff4d4d; font-weight: bold;">& More</span>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 25px; width: 100%;">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); width: 100%; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Прямая связь с руководством:</div>
+                    <a href="https://t.me/neizmr" target="_blank" class="actionBtn outline" style="margin-top: 0;">Лидер (Илья)</a>
+                    <a href="https://t.me/apyshev" target="_blank" class="actionBtn outline" style="margin-top: 0;">Со-Лидер (Саша)</a>
                 </div>
             </div>
-            
-            
-            
-            
-
-                        <div class="glassCard">
-                <div class="cardTitle"><span></span> кодекс & чат</div>
-                <div class="cardValue" style="font-size: 1.1rem;">
-                    С 1 мая чат в режиме чтения. Пишут только лидер и админы.
-                    <ul style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem; list-style: none; padding: 0;">
-                        <li>— Соблюдение субординации</li>
-                        <li>— Никаких конфликтов</li>
-                        <li>— Стабильный онлайн</li>
-                    </ul>
-                </div>
-                <a href="https://telegra.ph/Pravila-klana-Darken-02-17-3" target="_blank" class="actionBtn">Читать правила</a>
-            </div>
-
-            <div class="glassCard full-width">
-                <div class="cardTitle"><span></span> набор в администрацию</div>
-                <div class="vacancy-grid">
-                    <div>
-                        <div class="vacancyItem"><span>Помощник по новостям</span><span class="vacancy-age">15+ лет</span></div>
-                        <div class="vacancyItem"><span>Помощник чата (Модер)</span><span class="vacancy-age">15+ лет</span></div>
-                        <div class="vacancyItem"><span>Младший администратор</span><span class="vacancy-age">14+ лет</span></div>
-                        <div class="vacancyItem" style="border: none;"><span>Старший администратор</span><span class="vacancy-age">15+ лет</span></div>
-                    </div>
-                    <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center;">
-                        <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; letter-spacing: 0.1em;">Формат анкеты:</h4>
-                        <p style="font-size: 0.85rem; color: #ccc; line-height: 1.6; margin-bottom: 20px;">
-                            Имя, возраст, желаемая роль, опыт работы, часовой пояс.<br><br>
-                            <em>* Тестовый период обязателен.</em>
-                        </p>
-                        <a href="https://t.me/neizmr" target="_blank" class="actionBtn" style="margin: 0; width: fit-content;">Связь с лидером</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glassCard full-width" style="align-items: center; text-align: center; padding: 40px;">
-                <h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 10px;">Присоединяйся к системе</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 400px; margin-bottom: 25px;">Мы всегда рады адекватным и сильным игрокам.</p>
-                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-    <a href="https://t.me/darken_official" target="_blank" class="actionBtn">Telegram Channel</a>
-    <a href="https://discord.gg/JAAYF7hsE" target="_blank" class="actionBtn outline">Discord Server</a>
-    <a href="https://t.me/neizmr" target="_blank" class="actionBtn outline">Contact Leader</a>
-</div>
-
-            </div>
-        </div> <footer>
+        </div> 
+        
+        <footer>
             <div>© 2026 DARKEN CLAN</div>
-            <div style="color: var(--accent);">SYSTEM PROTOCOL ACTIVE</div>
+            <div style="color: var(--neon-green);">SYSTEM ONLINE</div>
         </footer>
-    </div> <script type="importmap">
+    </div> 
+    
+    <script type="importmap">
         { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
     </script>
     
     <script type="module">
         import * as THREE from 'three';
 
-        // 3D Сцена
         const container = document.getElementById('webglCanvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -499,31 +416,44 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Ядро
         const core = new THREE.Mesh(
             new THREE.IcosahedronGeometry(6, 2),
-            new THREE.MeshBasicMaterial({ color: 0xff2a2a, wireframe: true, transparent: true, opacity: 0.3 })
+            new THREE.MeshBasicMaterial({ color: 0x00ff66, wireframe: true, transparent: true, opacity: 0.25 })
         );
         scene.add(core);
 
-        // Кольца
-                const ringMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.5 });
+        const ringMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.4 });
         const ring1 = new THREE.Points(new THREE.TorusGeometry(18, 0.1, 16, 100), ringMat);
-                const ring2 = new THREE.Points(new THREE.TorusGeometry(18, 0.1, 16, 100), ringMat);
+        const ring2 = new THREE.Points(new THREE.TorusGeometry(18, 0.1, 16, 100), ringMat);
         ring1.rotation.x = Math.PI / 2;
         ring2.rotation.y = Math.PI / 3;
         scene.add(ring1, ring2);
 
-        // Анимация 3D
         let mouseX = 0, mouseY = 0;
+        let targetScale = 1;
+        let targetSpeed = 0.005;
+
+        window.addEventListener('mousedown', () => { targetScale = 1.4; targetSpeed = 0.04; });
+        window.addEventListener('mouseup', () => { targetScale = 1; targetSpeed = 0.005; });
+        window.addEventListener('touchstart', () => { targetScale = 1.4; targetSpeed = 0.04; }, {passive: true});
+        window.addEventListener('touchend', () => { targetScale = 1; targetSpeed = 0.005; });
+        
         document.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX - window.innerWidth/2) * 0.001;
             mouseY = (e.clientY - window.innerHeight/2) * 0.001;
         });
 
+        const clock = new THREE.Clock();
+
         function animate() {
             requestAnimationFrame(animate);
-            core.rotation.y += 0.005;
+            const time = clock.getElapsedTime();
+            const breathe = Math.sin(time * 1.5) * 0.08;
+            targetScale += (1 - targetScale) * 0.1;
+            targetSpeed += (0.005 - targetSpeed) * 0.05;
+            const currentScale = targetScale + breathe;
+            core.scale.set(currentScale, currentScale, currentScale);
+            core.rotation.y += targetSpeed;
             core.rotation.x += 0.002;
             ring1.rotation.z -= 0.001;
             ring2.rotation.z += 0.0015;
@@ -534,7 +464,6 @@
         }
         animate();
 
-        // Счетчик дней
         (function updateCounter() {
             const startDate = new Date('2025-08-03T15:00:00'); 
             const diffDays = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24)); 
@@ -542,7 +471,6 @@
             if(element) element.innerText = diffDays + ' Дней';
         })();
 
-        // Плавное появление карточек
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
@@ -559,4 +487,5 @@
         });
     </script>
 </body>
-</html>
+    </html>
+    
