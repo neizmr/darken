@@ -10,20 +10,21 @@
     <style>
         :root {
             --bg: #030303;
-            --bg-glow: radial-gradient(circle at 50% 0%, #0d1a10 0%, #030303 70%);
+            /* Нейтральный, строгий темный градиент вместо зеленого/красного */
+            --bg-glow: radial-gradient(circle at 50% 0%, #151515 0%, #030303 70%);
             --text: #ffffff;
             --text-muted: #888888;
-            --accent: #ff2a2a; 
-            --neon-green: #00ff66;
-            --glass: rgba(20, 20, 20, 0.4);
-            --border: rgba(255, 255, 255, 0.05);
-            --border-hover: rgba(255, 42, 42, 0.5);
+            /* Фирменный зеленый акцент для статусов и кнопок */
+            --accent: #00ff66;
+            --glass: rgba(20, 20, 20, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(0, 255, 102, 0.4);
         }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -43,7 +44,7 @@
             width: 100vw; height: 100vh;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.85;
+            opacity: 0.7;
         }
 
         .wrapper {
@@ -70,25 +71,12 @@
             letter-spacing: -0.02em;
             line-height: 1;
             text-transform: uppercase;
-            background: linear-gradient(180deg, #ffffff 0%, #666666 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #555555 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
             margin-bottom: 10px;
             position: relative;
-        }
-
-        h1::after {
-            content: 'DARKEN';
-            position: absolute;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(180deg, transparent 50%, var(--neon-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.2;
-            filter: blur(10px);
-            z-index: -1;
         }
 
         .motto {
@@ -100,13 +88,16 @@
             position: relative;
             display: inline-block;
         }
+        
         .motto::before, .motto::after {
             content: '';
             position: absolute;
             top: 50%;
             width: 30px; height: 1px;
-            background: var(--neon-green);
+            background: var(--text-muted);
+            opacity: 0.5;
         }
+        
         .motto::before { left: -40px; }
         .motto::after { right: -40px; }
 
@@ -151,13 +142,13 @@
 
         .glassCard:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 255, 102, 0.3);
-            background: rgba(30, 30, 30, 0.6);
+            border-color: var(--border-hover);
+            background: rgba(15, 15, 15, 0.8);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(0, 255, 102, 0.05);
         }
 
         .glassCard:hover::before {
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
 
         .cardTitle {
@@ -172,27 +163,28 @@
             gap: 10px;
         }
 
+        /* Зеленый маркер у заголовков карточек */
         .cardTitle span {
             display: inline-block;
             width: 8px; height: 8px;
-            background: var(--neon-green);
+            background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        @keyframes neonPulse {
+        @keyframes greenNeonPulse {
             0% { text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
-            50% { text-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 5px var(--neon-green); }
+            50% { text-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 5px var(--accent); }
             100% { text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
         }
 
         .status-active {
             font-size: 1.1rem; 
-            color: var(--neon-green); 
+            color: var(--accent);
             font-weight: 900; 
             letter-spacing: 0.15em; 
             margin-bottom: 10px;
-            animation: neonPulse 2.5s infinite;
+            animation: greenNeonPulse 2.5s infinite;
         }
 
         .cardValue {
@@ -202,13 +194,15 @@
             flex-grow: 1;
         }
 
+        /* Обновленные кнопки - строгие, но зеленеют при наведении */
         .actionBtn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 14px 28px;
-            background: #ffffff;
-            color: #000000;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid var(--border);
             border-radius: 16px; 
             text-decoration: none;
             font-weight: 700;
@@ -221,22 +215,11 @@
         }
 
         .actionBtn:hover {
-            background: var(--neon-green);
+            background: var(--accent);
             color: #000000;
+            border-color: var(--accent);
             box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
             transform: translateY(-2px);
-        }
-
-        .actionBtn.outline {
-            background: transparent;
-            color: #fff;
-            border: 1px solid var(--border);
-        }
-
-        .actionBtn.outline:hover {
-            border-color: var(--neon-green);
-            background: rgba(0, 255, 102, 0.1);
-            color: #fff;
         }
 
         .resource-grid {
@@ -248,7 +231,7 @@
         }
 
         .resource-card {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
             padding: 20px;
             border-radius: 16px;
@@ -262,7 +245,7 @@
         }
 
         .resource-card:hover {
-            border-color: var(--neon-green);
+            border-color: var(--accent);
             background: rgba(0, 255, 102, 0.05);
             transform: translateY(-3px);
         }
@@ -272,6 +255,11 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        
+        .resource-card:hover .resource-title {
+            color: var(--accent);
         }
 
         .resource-desc {
@@ -328,7 +316,7 @@
             <div class="glassCard">
                 <div class="cardTitle"><span></span> инфоцентр</div>
                 <div style="display: flex; flex-direction: column; gap: 15px; flex-grow: 1; justify-content: center;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; border-left: 3px solid var(--neon-green);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 12px; border-left: 3px solid var(--accent);">
                         <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Система в строю</div>
                         <div id="daysCounter" style="font-size: 1rem; font-weight: 700; color: #fff;"></div>
                     </div>
@@ -352,20 +340,20 @@
                         </ul>
                     </div>
                 </div>
-                <a href="https://telegra.ph/Darken--Oficialnye-pravila-klana-05-14" target="_blank" class="actionBtn outline" style="margin: 0; padding: 18px 36px; border-radius: 20px;">Читать полный устав</a>
+                <a href="https://telegra.ph/Pravila-klana-Darken-02-17-3" target="_blank" class="actionBtn" style="margin: 0; padding: 18px 36px; border-radius: 20px;">Читать полный устав</a>
             </div>
 
-            <div class="glassCard full-width" style="padding: 40px; border-color: rgba(0, 255, 102, 0.2); box-shadow: 0 0 30px rgba(0, 255, 102, 0.05);">
+            <div class="glassCard full-width" style="padding: 40px;">
                 <div class="cardTitle" style="margin-bottom: 25px;"><span></span> Инфраструктура & Заявки</div>
                 
                 <div class="resource-grid">
-                    <a href="https://t.me/abyss_ru_bot?start=apply" target="_blank" class="resource-card" style="border-color: var(--neon-green); background: rgba(0,255,102,0.05);">
-                        <div class="resource-title" style="color: var(--neon-green);">📝 Подать заявку (Abyss)</div>
+                    <a href="https://t.me/abyss_ru_bot?start=apply" target="_blank" class="resource-card" style="border-color: var(--accent); background: rgba(0, 255, 102, 0.02);">
+                        <div class="resource-title" style="color: var(--accent);">📝 Подать заявку (Abyss)</div>
                         <div class="resource-desc">Автоматическое начало регистрации в ряды клана.</div>
                     </a>
 
                     <a href="https://t.me/darkenstarsbot" target="_blank" class="resource-card">
-                        <div class="resource-title">⭐ TG Stars & Dонат</div>
+                        <div class="resource-title">⭐ TG Stars & Донат</div>
                         <div class="resource-desc">Магазин звезд, премиума и доната в игры.</div>
                     </a>
 
@@ -374,7 +362,7 @@
                         <div class="resource-desc">Главные новости, анонсы и обновления протокола.</div>
                     </a>
 
-                    <a href="https://discord.gg/DZEAX4Ftb" target="_blank" class="resource-card">
+                    <a href="https://discord.gg/JAAYF7hsE" target="_blank" class="resource-card">
                         <div class="resource-title">🎧 Discord Server</div>
                         <div class="resource-desc">Голосовая связь, сборки на игры и общение состава.</div>
                     </a>
@@ -387,15 +375,15 @@
 
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 25px; width: 100%;">
                     <div style="font-size: 0.8rem; color: var(--text-muted); width: 100%; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Прямая связь с руководством:</div>
-                    <a href="https://t.me/neizmr" target="_blank" class="actionBtn outline" style="margin-top: 0;">Лидер (Илья)</a>
-                    <a href="https://t.me/apyshev" target="_blank" class="actionBtn outline" style="margin-top: 0;">Со-Лидер (Саша)</a>
+                    <a href="https://t.me/neizmr" target="_blank" class="actionBtn" style="margin-top: 0;">Лидер (Илья)</a>
+                    <a href="https://t.me/apyshev" target="_blank" class="actionBtn" style="margin-top: 0;">Со-Лидер (Саша)</a>
                 </div>
             </div>
         </div> 
         
         <footer>
             <div>© 2026 DARKEN CLAN</div>
-            <div style="color: var(--neon-green);">SYSTEM ONLINE</div>
+            <div style="color: var(--accent); animation: greenNeonPulse 2.5s infinite;">SYSTEM ONLINE</div>
         </footer>
     </div> 
     
@@ -416,31 +404,36 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
+        // Бело-прозрачное ядро, как просили в чате
         const core = new THREE.Mesh(
             new THREE.IcosahedronGeometry(6, 2),
-            new THREE.MeshBasicMaterial({ color: 0x00ff66, wireframe: true, transparent: true, opacity: 0.25 })
+            new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.15 })
         );
         scene.add(core);
 
-        const ringMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.4 });
+        const ringMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.25 });
         const ring1 = new THREE.Points(new THREE.TorusGeometry(18, 0.1, 16, 100), ringMat);
         const ring2 = new THREE.Points(new THREE.TorusGeometry(18, 0.1, 16, 100), ringMat);
         ring1.rotation.x = Math.PI / 2;
         ring2.rotation.y = Math.PI / 3;
         scene.add(ring1, ring2);
 
+        // Переменные для плавной анимации
         let mouseX = 0, mouseY = 0;
         let targetScale = 1;
+        let currentScale = 1;
         let targetSpeed = 0.005;
+        let currentSpeed = 0.005;
 
-        window.addEventListener('mousedown', () => { targetScale = 1.4; targetSpeed = 0.04; });
+        // Плавная настройка интерактива
+        window.addEventListener('mousedown', () => { targetScale = 1.3; targetSpeed = 0.03; });
         window.addEventListener('mouseup', () => { targetScale = 1; targetSpeed = 0.005; });
-        window.addEventListener('touchstart', () => { targetScale = 1.4; targetSpeed = 0.04; }, {passive: true});
+        window.addEventListener('touchstart', () => { targetScale = 1.3; targetSpeed = 0.03; }, {passive: true});
         window.addEventListener('touchend', () => { targetScale = 1; targetSpeed = 0.005; });
         
         document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - window.innerWidth/2) * 0.001;
-            mouseY = (e.clientY - window.innerHeight/2) * 0.001;
+            mouseX = (e.clientX - window.innerWidth/2) * 0.0005;
+            mouseY = (e.clientY - window.innerHeight/2) * 0.0005;
         });
 
         const clock = new THREE.Clock();
@@ -448,18 +441,26 @@
         function animate() {
             requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
-            const breathe = Math.sin(time * 1.5) * 0.08;
-            targetScale += (1 - targetScale) * 0.1;
-            targetSpeed += (0.005 - targetSpeed) * 0.05;
-            const currentScale = targetScale + breathe;
+            
+            // Легкая "дышащая" пульсация
+            const breathe = Math.sin(time * 1.5) * 0.03; 
+            
+            // Интерполяция (плавный переход)
+            currentScale += (targetScale + breathe - currentScale) * 0.05;
+            currentSpeed += (targetSpeed - currentSpeed) * 0.05;
+            
             core.scale.set(currentScale, currentScale, currentScale);
-            core.rotation.y += targetSpeed;
+            core.rotation.y += currentSpeed;
             core.rotation.x += 0.002;
+            
             ring1.rotation.z -= 0.001;
             ring2.rotation.z += 0.0015;
-            camera.position.x += (mouseX * 15 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 15 - camera.position.y) * 0.05;
+            
+            // Камера плавно следует за мышью
+            camera.position.x += (mouseX * 10 - camera.position.x) * 0.03;
+            camera.position.y += (-mouseY * 10 - camera.position.y) * 0.03;
             camera.lookAt(scene.position);
+            
             renderer.render(scene, camera);
         }
         animate();
@@ -488,4 +489,3 @@
     </script>
 </body>
     </html>
-    
